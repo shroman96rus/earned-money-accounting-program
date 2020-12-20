@@ -97,20 +97,41 @@ namespace earned_money_accounting_program
             xdoc.Add(tables);
 
             xdoc.Save(@"C:\Users\User\Desktop\111\result\tabliza.xml");
-            
         }
 
         //Создание текстового документа на основе полученных данных
         public void TextCreate(string translation)
         {
-            Random random = new Random();
-            random.Next(20);
-            string writePut = $@"C:\Users\User\Desktop\111\result\test{random.Next(20)}.txt";
-            StreamWriter sw = new StreamWriter(writePut);
-            sw.WriteLine("Дата\t||\tСумма\t||Комментарий");
-            sw.WriteLine(translation);
-            sw.WriteLine("This is a test");
-            sw.Close();
+            
+            FileInfo file = new FileInfo(@"C:\Users\User\Desktop\111\result\test.txt");
+            if (file.Exists)
+            {
+                // запись в файл
+                using (FileStream fstream = new FileStream(@"C:\Users\User\Desktop\111\result\test.txt", FileMode.Append))
+                {
+                    // преобразуем строку в байты
+                    byte[] array = System.Text.Encoding.Default.GetBytes(translation);
+                    // запись массива байтов в файл
+                    fstream.Write(array, 0, array.Length);
+                    byte[] arrayn = System.Text.Encoding.Default.GetBytes("\n");
+                    fstream.Write(array, 0, arrayn.Length);
+                }
+                
+            }
+            else
+            {
+                string writePut = @"C:\Users\User\Desktop\111\result\test.txt";
+                using (StreamWriter sw = new StreamWriter(writePut))
+                {
+                    sw.WriteLine("Дата\t||\tСумма\t||Комментарий");
+                    sw.WriteLine(translation);
+                    sw.WriteLine("This is a test");
+                    sw.Close();
+                } 
+                
+            }
+
+            
 
         }
 
@@ -139,12 +160,7 @@ namespace earned_money_accounting_program
                 }
             }
             Console.WriteLine(textDocument);
-            
-
         }
-
-
-
 
         public void PrintAccount()
         {
