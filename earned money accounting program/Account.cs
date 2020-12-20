@@ -10,9 +10,9 @@ namespace earned_money_accounting_program
 {
     class Account
     {
-        public string name { get; set; }
+        private string name { get; set; }
         //Баланс оптеделется тем, что сумма баланса вычисляется в методе get путем добавления туда данных из листа alltransaction
-        public double balance
+        private double balance
         {
             get
             {
@@ -107,40 +107,36 @@ namespace earned_money_accounting_program
             if (file.Exists)
             {
                 // запись в файл
-                using (FileStream fstream = new FileStream(@"C:\Users\User\Desktop\111\result\test.txt", FileMode.Append))
+                using (StreamWriter sw = new StreamWriter(@"C:\Users\User\Desktop\111\result\test.txt",true))
                 {
-                    // преобразуем строку в байты
-                    byte[] array = System.Text.Encoding.Default.GetBytes(translation);
-                    // запись массива байтов в файл
-                    fstream.Write(array, 0, array.Length);
-                    byte[] arrayn = System.Text.Encoding.Default.GetBytes("\n");
-                    fstream.Write(array, 0, arrayn.Length);
+                    sw.WriteLine("\nДата\t\tСумма\tКомментарий\n");
+                    sw.WriteLine(translation);
+                    sw.Close();
                 }
-                
+
             }
             else
             {
                 string writePut = @"C:\Users\User\Desktop\111\result\test.txt";
                 using (StreamWriter sw = new StreamWriter(writePut))
                 {
-                    sw.WriteLine("Дата\t||\tСумма\t||Комментарий");
+                    sw.WriteLine("Дата\t\tСумма\tКомментарий");
                     sw.WriteLine(translation);
-                    sw.WriteLine("This is a test");
                     sw.Close();
                 } 
                 
             }
-
-            
-
         }
 
         //Чтение входящих данных из текстового файла
         public void TextRead()
         {
             string readPut = @"C:\Users\User\Desktop\111\input\user.txt";
+            
             StreamReader sr = new StreamReader(readPut);
+            
             string textDocument;
+            
             while ((textDocument = sr.ReadLine())!= null)
             {
                 string[] array = textDocument.Split('\t');

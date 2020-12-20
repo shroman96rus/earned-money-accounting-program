@@ -11,78 +11,21 @@ namespace earned_money_accounting_program
     {
         static void Main(string[] args)
         {
-            //Создание объекта класса Account
-            Account buroPerevodov = new Account("Бюро переводов");
+            Console.WriteLine("Выберите что выхотите запустить:\n" +
+                "Тестовая программа выберите\t\t 1\n\n" +
+                "Программа учета финансов выберите\t 2");
 
-            //выбираем каким образом мы будем получать данные
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("Выберите хотите ли вы получать информацию из текстового файла, или вводить все даные сами\n" +
-                "Выберите 1 если хотите получить данные из текстового файла \tНажмите 2 если хотите вводить данные вручную");
-            Console.ResetColor();
-            
-            switch (Console.ReadLine())
+            string choise = Console.ReadLine();
+            switch (choise)
             {
-                case "1": buroPerevodov.TextRead(); break; 
-                case "2": Operation(); break;
-                default: Console.WriteLine("Вы ввели некорректное значение"); break;
+                case "1": For_lessons test = new For_lessons(); test.ForTest(); break;
+                
+                case "2": WorkInAccount account = new WorkInAccount(); account.ChoiseOperation(); break;
+                
+                default:
+                    break;
             }
 
-            // выбор операции внесения или снятия денег
-            void Operation()
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Если вы хотите внести деньги на баланс напишите 1\n" +
-                "Если вы хотите оплатить какие-либо услуги напишите 2\n");
-                Console.ResetColor();
-
-                string choiceOperation = Console.ReadLine();
-                
-                switch (choiceOperation)
-                {
-                    case "1":
-                        {
-                            Console.WriteLine("введите дату платежа в формате (ГГГГ,ММ,ДД)");
-                            DateTime date = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("Введите сумму платежа");
-                            double pay = Convert.ToDouble(Console.ReadLine());
-                            Console.WriteLine("Введите коментарий за что платеж");
-                            string note = Console.ReadLine();
-                            buroPerevodov.PayForWork(date, pay, note);
-                            break;
-                        }
-                    case "2":
-                        {
-                            Console.WriteLine("введите дату платежа за услугу в формате (ГГГГ,ММ,ДД)");
-                            DateTime date = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("Введите сумму платежа за услугу");
-                            double pay = Convert.ToDouble(Console.ReadLine());
-                            Console.WriteLine("Введите коментарий за что платеж");
-                            string note = Console.ReadLine();
-                            buroPerevodov.PaymentForWork(date, pay, note);
-                            break;
-                        }
-
-                    default:
-                        Console.WriteLine("Запрос непонятен попробуйте ещу раз"); Operation();
-                        break;
-                }
-                Console.WriteLine("Выберите 1 если вы хотите продолжить вводить операции или 2 если хотите закончить");
-                switch (Console.ReadLine())
-                {
-                    case "1" : Operation(); break;
-                    case "2": break;
-                    default : Console.WriteLine("Запрос непонятен попробуйте ещу раз"); Operation();
-                        break;
-                }
-            }
-            buroPerevodov.PrintAccount();
-            Console.WriteLine();
-            buroPerevodov.history();
-            buroPerevodov.CreateTable();
-            Console.ReadLine();
-                
-            
-        
         }
     }
 }

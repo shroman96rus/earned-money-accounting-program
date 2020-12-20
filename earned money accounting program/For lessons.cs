@@ -8,17 +8,19 @@ namespace earned_money_accounting_program
 {
     class For_lessons
     {
+        private int y;
 
-        public DateTime test  { get; set; }
-
-        //For_lessons(DateTime test)
-        //{
-        //    this.test = test;
-        //}
-
-        public void printDT()
+        public int Y
         {
-            Console.WriteLine(test.ToString("dd,MMM,yy"));
+            get { return y; }
+            set { y = value; }
+        }
+
+
+        public void ForTest()
+        {
+
+
         }
 
     }
