@@ -41,7 +41,6 @@ namespace earned_money_accounting_program
         {
             var pay = new Transaction(date, payment, note);
             allTransictions.Add(pay);
-            
         }
 
         //Метод отвечающий за уменьшение баланса при оплате различных услуг
@@ -56,78 +55,32 @@ namespace earned_money_accounting_program
         //вывод истории всех операций
         public void history()
         {
-            StringBuilder transactionHistory = new StringBuilder();
             double balance = 0;
+
+            StringBuilder transactionHistory = new StringBuilder();
+           
             foreach (var item in allTransictions)
             {
                 transactionHistory.Append($"{item.dateOperation.ToString("dd.MMM.yyyy")}\t{item.summaOperation}\t{item.operationСomment}\n");
                 balance += item.summaOperation;
             }
-            transactionHistory.Append($"Cумма заработанная на данный момент составляет:\t {balance}");
-            Console.WriteLine(transactionHistory.ToString());
-            TextCreate(transactionHistory.ToString());
-        }
-
-        //Создание XML файла на основе полученных данных
-        public void CreateTable()
-        {
-
-            XDocument xdoc = new XDocument();
-            XElement tables = new XElement("table");
-            foreach (var item in allTransictions)
-            {
-                XElement id = new XElement("Transaction");
-                XAttribute dateNameAttr = new XAttribute("Date", item.dateOperation.ToString("dd.MMMM.yyyy"));
-                XElement operationCountElem = new XElement("Summa", item.summaOperation.ToString());
-                XElement operationNoteElem = new XElement("Comment", item.operationСomment);
-                
-
-                //// добавляем атрибут и элементы в первый элемент
-                id.Add(dateNameAttr);
-                id.Add(operationCountElem);
-                id.Add(operationNoteElem);
-                tables.Add(id);
-            }
-            XElement balance = new XElement("Transaction");
-            XAttribute balNameAttr = new XAttribute("Date", "Cумма заработанная на данный момент составляет:");
-            XElement balEllement = new XElement("Summa", this.balance);
-            balance.Add(balNameAttr);
-            balance.Add(balEllement);
-            tables.Add(balance);
-            xdoc.Add(tables);
-
-            xdoc.Save(@"C:\Users\User\Desktop\111\result\tabliza.xml");
-        }
-
-        //Создание текстового документа на основе полученных данных
-        public void TextCreate(string translation)
-        {
             
-            FileInfo file = new FileInfo(@"C:\Users\User\Desktop\111\result\test.txt");
-            if (file.Exists)
-            {
-                // запись в файл
-                using (StreamWriter sw = new StreamWriter(@"C:\Users\User\Desktop\111\result\test.txt",true))
-                {
-                    sw.WriteLine("\nДата\t\tСумма\tКомментарий\n");
-                    sw.WriteLine(translation);
-                    sw.Close();
-                }
+            transactionHistory.Append($"Cумма заработанная на данный момент составляет:\t {balance}");
+            
+            Console.WriteLine(transactionHistory.ToString());
 
-            }
-            else
-            {
-                string writePut = @"C:\Users\User\Desktop\111\result\test.txt";
-                using (StreamWriter sw = new StreamWriter(writePut))
-                {
-                    sw.WriteLine("Дата\t\tСумма\tКомментарий");
-                    sw.WriteLine(translation);
-                    sw.Close();
-                } 
-                
-            }
+            //Создание текстового документа
+            WriteText textCreate = new WriteText();
+            textCreate.TextCreate(transactionHistory.ToString());
+
+            //Создание таблицы XML
+            CreateTable XML = new CreateTable();
+            XML.CreateXML(allTransictions, this.balance);
+            
         }
 
+        
+        
         //Чтение входящих данных из текстового файла
         public void TextRead()
         {

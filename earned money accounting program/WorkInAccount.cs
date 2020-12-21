@@ -21,7 +21,7 @@ namespace earned_money_accounting_program
 
             switch (Console.ReadLine())
             {
-                case "1": buroPerevodov.TextRead(); break;
+                case "1":  buroPerevodov.TextRead(); break;
                 case "2": Operation(); break;
                 default: Console.WriteLine("Вы ввели некорректное значение"); break;
             }
@@ -78,7 +78,7 @@ namespace earned_money_accounting_program
             buroPerevodov.PrintAccount();
             Console.WriteLine();
             buroPerevodov.history();
-            buroPerevodov.CreateTable();
+            //buroPerevodov.CreateTable();
             Console.ReadLine();
         }
     }
