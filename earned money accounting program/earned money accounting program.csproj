@@ -72,11 +72,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="CreateTable.cs" />
     <Compile Include="For lessons.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="WorkInAccount.cs" />
+    <Compile Include="WriteText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
