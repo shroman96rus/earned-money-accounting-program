@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace earned_money_accounting_program
 {
-    class Transaction
+    public class Transaction
     {
         //Оюьявление переменных (комент к операции, сумма операции, дата операции)
-        public string operationСomment { get; }
-        public double summaOperation { get; }
-        public DateTime dateOperation { get; }
+       
+        public int ID { get; set; }
+        public string operationСomment { get; set; }
+        public double summaOperation { get; set; }
+        public DateTime dateOperation { get; set; }
 
         //Создаем конструктор
         public Transaction(DateTime dateOperation, double summaOperation, string operationСomment)

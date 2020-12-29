@@ -13,7 +13,6 @@ namespace earned_money_accounting_program
         //Создание текстового документа на основе полученных данных
         public void TextCreate(string translation)
         {
-
             FileInfo file = new FileInfo(@"C:\Users\User\Desktop\111\result\test.txt");
             if (file.Exists)
             {

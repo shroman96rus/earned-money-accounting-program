@@ -27,14 +27,35 @@ namespace earned_money_accounting_program
 
         }
         
-
         //Конструктор создания акаунта
         public Account(string name)
         {
             this.name = name;
         }
-
+        
+        //Все транзакции записываются в лист
         List<Transaction> allTransictions = new List<Transaction>();
+
+        //Создание базы данных
+        public void CreateDB()
+        {
+            
+            using(UserContext db = new UserContext())
+            {
+                
+                foreach (var transaction in allTransictions)
+                {
+                    db.Transactions.Add(transaction); 
+                    
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public void ReadDB()
+        {
+
+        }
 
         //Метод отвечающий за пополнение баланса при оплате за работу
         public void PayForWork(DateTime date, double payment, string note)

@@ -16,7 +16,7 @@ namespace earned_money_accounting_program
             //выбираем каким образом мы будем получать данные
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Выберите хотите ли вы получать информацию из текстового файла, или вводить все даные сами\n" +
-                "Выберите 1 если хотите получить данные из текстового файла \tНажмите 2 если хотите вводить данные вручную");
+                "Выберите 1: если хотите получить данные из текстового файла \tНажмите 2: если хотите вводить данные вручную");
             Console.ResetColor();
 
             switch (Console.ReadLine())
@@ -75,11 +75,28 @@ namespace earned_money_accounting_program
                         break;
                 }
             }
-            buroPerevodov.PrintAccount();
-            Console.WriteLine();
-            buroPerevodov.history();
-            //buroPerevodov.CreateTable();
-            Console.ReadLine();
+            
+            string choiseOperation = "";
+            while (choiseOperation != "4")
+            {
+                Console.WriteLine("Выберите операцию:\n" +
+                "Нажмите 1: для вывода названия созданного аккаунта\tНажмите 2: для вывода истории " +
+                "операции на консоль, создания XML таблицы, а также создания текстового документа" +
+                "\tНажмите 3: для записи данных в базу данных\n" +
+                "Нажмите 4: для выхода");
+                choiseOperation = Console.ReadLine();
+                switch (choiseOperation)
+                {
+                    case "1": buroPerevodov.PrintAccount(); break;
+                    case "2": buroPerevodov.history(); break;
+                    case "3": buroPerevodov.CreateDB(); break;
+                    case "4": break;
+                    default: Console.WriteLine("Вы ввели неверный номер операции попробуйте снова"); break;
+                }
+
+            }
+            
+            
         }
     }
 

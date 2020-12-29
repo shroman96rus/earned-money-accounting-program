@@ -11,7 +11,7 @@ namespace earned_money_accounting_program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Выберите что выхотите запустить:\n" +
+            Console.WriteLine("Выберите что выхотите запустить:\n\n" +
                 "Тестовая программа выберите\t\t 1\n\n" +
                 "Программа учета финансов выберите\t 2");
 
