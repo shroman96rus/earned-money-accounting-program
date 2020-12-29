@@ -13,17 +13,44 @@ namespace earned_money_accounting_program
             //Создание объекта класса Account
             Account buroPerevodov = new Account("Бюро переводов");
 
-            //выбираем каким образом мы будем получать данные
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("Выберите хотите ли вы получать информацию из текстового файла, или вводить все даные сами\n" +
-                "Выберите 1: если хотите получить данные из текстового файла \tНажмите 2: если хотите вводить данные вручную");
-            Console.ResetColor();
-
-            switch (Console.ReadLine())
+            //Выбор последующих операций
+            string choiseOperation = "";
+            while (choiseOperation != "6")
             {
-                case "1":  buroPerevodov.TextRead(); break;
-                case "2": Operation(); break;
-                default: Console.WriteLine("Вы ввели некорректное значение"); break;
+                Console.WriteLine("Выберите операцию:\n\n" +
+                "Нажмите 1: для вывода названия созданного аккаунта\nНажмите 2: для вывода истории " +
+                "операции на консоль, создания XML таблицы, а также создания текстового документа" +
+                "\nНажмите 3: для записи данных в базу данных\nНажмите 4: для чтения данных из базы данных\n" +
+                "Нажмите 5: для ввода новых данных\n" +
+                "Нажмите 6: для выхода");
+                choiseOperation = Console.ReadLine();
+                switch (choiseOperation)
+                {
+                    case "1": buroPerevodov.PrintAccount(); break;
+                    case "2": buroPerevodov.history(); break;
+                    case "3": buroPerevodov.CreateDB(); break;
+                    case "4": buroPerevodov.ReadDB(); break;
+                    case "5": InputNewData(); break;
+                    case "6": break;
+                    default: Console.WriteLine("Вы ввели неверный номер операции попробуйте снова"); break;
+                }
+
+            }
+            void InputNewData()
+            {
+                //выбираем каким образом мы будем получать данные
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("Выберите хотите ли вы получать информацию из текстового файла, или вводить все даные сами\n" +
+                    "Выберите 1: если хотите получить данные из текстового файла \tНажмите 2: если хотите вводить данные вручную");
+                Console.ResetColor();
+
+                switch (Console.ReadLine())
+                {
+                    case "1": buroPerevodov.TextRead(); break;
+                    case "2": Operation(); break;
+                    default: Console.WriteLine("Вы ввели некорректное значение"); break;
+                }
+                return;
             }
 
             // выбор операции внесения или снятия денег
@@ -76,25 +103,7 @@ namespace earned_money_accounting_program
                 }
             }
             
-            string choiseOperation = "";
-            while (choiseOperation != "4")
-            {
-                Console.WriteLine("Выберите операцию:\n" +
-                "Нажмите 1: для вывода названия созданного аккаунта\tНажмите 2: для вывода истории " +
-                "операции на консоль, создания XML таблицы, а также создания текстового документа" +
-                "\tНажмите 3: для записи данных в базу данных\n" +
-                "Нажмите 4: для выхода");
-                choiseOperation = Console.ReadLine();
-                switch (choiseOperation)
-                {
-                    case "1": buroPerevodov.PrintAccount(); break;
-                    case "2": buroPerevodov.history(); break;
-                    case "3": buroPerevodov.CreateDB(); break;
-                    case "4": break;
-                    default: Console.WriteLine("Вы ввели неверный номер операции попробуйте снова"); break;
-                }
-
-            }
+            
             
             
         }

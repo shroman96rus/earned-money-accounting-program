@@ -23,6 +23,9 @@ namespace earned_money_accounting_program
             this.operationСomment = operationСomment;
         }
 
-
+        public Transaction()
+        {
+            
+        }
     }
 }

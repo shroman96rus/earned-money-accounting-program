@@ -49,11 +49,30 @@ namespace earned_money_accounting_program
                     
                 }
                 db.SaveChanges();
+               
             }
         }
 
+        //Чтение Базы Данных
         public void ReadDB()
         {
+            //using (PhoneContext db = new PhoneContext())
+            //{
+            //    System.Data.SqlClient.SqlParameter param = new System.Data.SqlClient.SqlParameter("@name", "%Samsung%");
+            //    var phones = db.Database.SqlQuery<Phone>("SELECT * FROM Phones WHERE Name LIKE @name", param);
+            //    foreach (var phone in phones)
+            //        Console.WriteLine(phone.Name);
+            //}
+            using (UserContext db = new UserContext())
+            {
+                var test = db.Database.SqlQuery<Transaction>("SELECT * FROM Transactions ");
+                foreach (var item in test)
+                {
+                    Console.WriteLine($"Номер п/п: {item.ID}\t Дата операции: {item.dateOperation}\t " +
+                        $"Сумма операции: {item.summaOperation}\t Комментарий: {item.operationСomment}");
+                }
+                Console.WriteLine(db.Database.Connection.ConnectionString);
+            }
 
         }
 
@@ -100,7 +119,6 @@ namespace earned_money_accounting_program
             
         }
 
-        
         
         //Чтение входящих данных из текстового файла
         public void TextRead()
