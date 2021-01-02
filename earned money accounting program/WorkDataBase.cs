@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 
 namespace earned_money_accounting_program
 {
+    //Освежить данные по разделу Enum
+    enum Month
+    {
+        Январь = 1,
+        Февраль = 2,
+
+
+
+    }
+
     class WorkDataBase
     {
         //Чтение Базы Данных

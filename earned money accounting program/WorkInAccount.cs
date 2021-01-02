@@ -19,25 +19,22 @@ namespace earned_money_accounting_program
             {
                 Console.WriteLine("Выберите операцию:\n\n" +
                 "Нажмите 1: для вывода названия созданного аккаунта\n" +
-                "Нажмите 2: для вывода истории операции на консоль, создания XML таблицы\n" +
-                "Нажмите 3: для записи данных в базу данных\nНажмите 4: для чтения данных из базы данных\n" +
-                "Нажмите 5: для ввода новых данных\n" +
-                "Нажмите 6: для создания XML таблицы из базы данных\n" +
-                "Нажмите 7: для создания текстового документа\n" +
-                "Нажмите 8: для отображения данных по операциям хранящимся в БД за август\n" +
-                "Нажмите 9: для выхода из программы");
+                "Нажмите 2: для ввода новых данных\n" +
+                "Нажмите 3: для чтения данных из базы данных\n" +
+                "Нажмите 4: для создания XML таблицы из базы данных\n" +
+                "Нажмите 5: для создания текстового документа\n" +
+                "Нажмите 6: для отображения данных по операциям хранящимся в БД за август\n" +
+                "Нажмите 0: для выхода из программы");
                 choiseOperation = Console.ReadLine();
                 switch (choiseOperation)
                 {
                     case "1": buroPerevodov.PrintAccount(); break;
-                    case "2": buroPerevodov.history(); break;
-                    case "3": buroPerevodov.CreateDB(); break;
-                    case "4": WorkDataBase db = new WorkDataBase(); db.ReadDB();  break;
-                    case "5": InputNewData(); break;
-                    case "6": CreateTable createDb = new CreateTable(); createDb.CreateXMLForDataBase(); break;
-                    case "7": buroPerevodov.CreateText(); break;
-                    case "8": WorkDataBase dbW = new WorkDataBase(); dbW.WorkDB(); break;
-                    case "9": break;
+                    case "2": InputNewData(); break;
+                    case "3": WorkDataBase db = new WorkDataBase(); db.ReadDB();  break;
+                    case "4": CreateTable createDb = new CreateTable(); createDb.CreateXMLForDataBase(); break;
+                    case "5": buroPerevodov.CreateText(); break;
+                    case "6": WorkDataBase dbW = new WorkDataBase(); dbW.WorkDB(); break;
+                    case "0": break;
                     default: Console.WriteLine("Вы ввели неверный номер операции попробуйте снова"); break;
                 }
 
@@ -45,17 +42,29 @@ namespace earned_money_accounting_program
             void InputNewData()
             {
                 //выбираем каким образом мы будем получать данные
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine("Выберите хотите ли вы получать информацию из текстового файла, или вводить все даные сами\n" +
-                    "Выберите 1: если хотите получить данные из текстового файла \t" +
-                    "Нажмите 2: если хотите вводить данные вручную");
-                Console.ResetColor();
-
-                switch (Console.ReadLine())
+                
+                string change = "";
+                while (change != "4")
                 {
-                    case "1": buroPerevodov.TextRead(); break;
-                    case "2": Operation(); break;
-                    default: Console.WriteLine("Вы ввели некорректное значение"); break;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("Выберите хотите ли вы получать информацию из текстового файла, или вводить все даные сами\n" +
+                        "Нажмите 1: если хотите получить данные из текстового файла \n" +
+                        "Нажмите 2: если хотите вводить данные вручную \n" +
+                        "Нажмите 3: вывода истории введенных вами операции на консоль и создания XML таблицы\n" +
+                        "Нажмите 4: для записи данных в базу данных\n" +
+                        "Нажмите 0: для выхода из меню ввода даных");
+                    Console.ResetColor();
+                    
+                    change = Console.ReadLine();
+                    switch (change)
+                    {
+                        case "1": buroPerevodov.TextRead(); break;
+                        case "2": Operation(); break;
+                        case "3": buroPerevodov.history(); break;
+                        case "4": buroPerevodov.CreateDB(); break;
+                        case "0": break;
+                        default: Console.WriteLine("Вы ввели некорректное значение"); break;
+                    }
                 }
                 return;
             }
@@ -63,51 +72,59 @@ namespace earned_money_accounting_program
             // выбор операции внесения или снятия денег
             void Operation()
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Если вы хотите внести деньги на баланс напишите 1\n" +
-                "Если вы хотите оплатить какие-либо услуги напишите 2\n");
-                Console.ResetColor();
-
-                string choiceOperation = Console.ReadLine();
-
-                switch (choiceOperation)
+                
+                string choiceOperation = "";
+                while (choiceOperation != "3")
                 {
-                    case "1":
-                        {
-                            Console.WriteLine("введите дату платежа в формате (ГГГГ,ММ,ДД)");
-                            DateTime date = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("Введите сумму платежа");
-                            double pay = Convert.ToDouble(Console.ReadLine());
-                            Console.WriteLine("Введите коментарий за что платеж");
-                            string note = Console.ReadLine();
-                            buroPerevodov.PayForWork(date, pay, note);
-                            break;
-                        }
-                    case "2":
-                        {
-                            Console.WriteLine("введите дату платежа за услугу в формате (ГГГГ,ММ,ДД)");
-                            DateTime date = Convert.ToDateTime(Console.ReadLine());
-                            Console.WriteLine("Введите сумму платежа за услугу");
-                            double pay = Convert.ToDouble(Console.ReadLine());
-                            Console.WriteLine("Введите коментарий за что платеж");
-                            string note = Console.ReadLine();
-                            buroPerevodov.PaymentForWork(date, pay, note);
-                            break;
-                        }
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Нажмите 1: Если вы хотите внести деньги на баланс\n" +
+                    "Нажмите 2: Если вы хотите оплатить какие-либо услуги\n" +
+                    "Нажмите 3: Для выхода из меню выбора операций");
+                    Console.ResetColor();
 
-                    default:
-                        Console.WriteLine("Запрос непонятен попробуйте ещу раз"); Operation();
-                        break;
+                    choiceOperation = Console.ReadLine();
+                    switch (choiceOperation)
+                    {
+                        case "1":
+                            {
+                                Console.WriteLine("введите дату платежа в формате");
+                                DateTime date = Convert.ToDateTime(Console.ReadLine());
+                                Console.WriteLine("Введите сумму платежа");
+                                double pay = Convert.ToDouble(Console.ReadLine());
+                                Console.WriteLine("Введите коментарий за что платеж");
+                                string note = Console.ReadLine();
+                                buroPerevodov.PayForWork(date, pay, note);
+                                Console.WriteLine("Данные успешно занесены\n");
+                                break;
+                            }
+                        case "2":
+                            {
+                                Console.WriteLine("введите дату платежа за услугу в формате (ГГГГ,ММ,ДД)");
+                                DateTime date = Convert.ToDateTime(Console.ReadLine());
+                                Console.WriteLine("Введите сумму платежа за услугу");
+                                double pay = Convert.ToDouble(Console.ReadLine());
+                                Console.WriteLine("Введите коментарий за что платеж");
+                                string note = Console.ReadLine();
+                                buroPerevodov.PaymentForWork(date, pay, note);
+                                Console.WriteLine("Данные успешно занесены\n");
+                                break;
+                            }
+                        case "3": break;
+
+                        default:
+                            Console.WriteLine("Запрос непонятен попробуйте ещу раз");
+                            break;
+                    }
                 }
-                Console.WriteLine("Выберите 1 если вы хотите продолжить вводить операции или 2 если хотите закончить");
-                switch (Console.ReadLine())
-                {
-                    case "1": Operation(); break;
-                    case "2": break;
-                    default:
-                        Console.WriteLine("Запрос непонятен попробуйте ещу раз"); Operation();
-                        break;
-                }
+                //Console.WriteLine("Нажмите 1: если вы хотите продолжить вводить операции или Нажмите 2: если хотите закончить");
+                //switch (Console.ReadLine())
+                //{
+                //    case "1": Operation(); break;
+                //    case "2": break;
+                //    default:
+                //        Console.WriteLine("Запрос непонятен попробуйте ещу раз"); Operation();
+                //        break;
+                //}
             }
             
             
