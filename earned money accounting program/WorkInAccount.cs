@@ -15,23 +15,29 @@ namespace earned_money_accounting_program
 
             //Выбор последующих операций
             string choiseOperation = "";
-            while (choiseOperation != "6")
+            while (choiseOperation != "9")
             {
                 Console.WriteLine("Выберите операцию:\n\n" +
-                "Нажмите 1: для вывода названия созданного аккаунта\nНажмите 2: для вывода истории " +
-                "операции на консоль, создания XML таблицы, а также создания текстового документа" +
-                "\nНажмите 3: для записи данных в базу данных\nНажмите 4: для чтения данных из базы данных\n" +
+                "Нажмите 1: для вывода названия созданного аккаунта\n" +
+                "Нажмите 2: для вывода истории операции на консоль, создания XML таблицы\n" +
+                "Нажмите 3: для записи данных в базу данных\nНажмите 4: для чтения данных из базы данных\n" +
                 "Нажмите 5: для ввода новых данных\n" +
-                "Нажмите 6: для выхода");
+                "Нажмите 6: для создания XML таблицы из базы данных\n" +
+                "Нажмите 7: для создания текстового документа\n" +
+                "Нажмите 8: для отображения данных по операциям хранящимся в БД за август\n" +
+                "Нажмите 9: для выхода из программы");
                 choiseOperation = Console.ReadLine();
                 switch (choiseOperation)
                 {
                     case "1": buroPerevodov.PrintAccount(); break;
                     case "2": buroPerevodov.history(); break;
                     case "3": buroPerevodov.CreateDB(); break;
-                    case "4": buroPerevodov.ReadDB(); break;
+                    case "4": WorkDataBase db = new WorkDataBase(); db.ReadDB();  break;
                     case "5": InputNewData(); break;
-                    case "6": break;
+                    case "6": CreateTable createDb = new CreateTable(); createDb.CreateXMLForDataBase(); break;
+                    case "7": buroPerevodov.CreateText(); break;
+                    case "8": WorkDataBase dbW = new WorkDataBase(); dbW.WorkDB(); break;
+                    case "9": break;
                     default: Console.WriteLine("Вы ввели неверный номер операции попробуйте снова"); break;
                 }
 
@@ -41,7 +47,8 @@ namespace earned_money_accounting_program
                 //выбираем каким образом мы будем получать данные
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.WriteLine("Выберите хотите ли вы получать информацию из текстового файла, или вводить все даные сами\n" +
-                    "Выберите 1: если хотите получить данные из текстового файла \tНажмите 2: если хотите вводить данные вручную");
+                    "Выберите 1: если хотите получить данные из текстового файла \t" +
+                    "Нажмите 2: если хотите вводить данные вручную");
                 Console.ResetColor();
 
                 switch (Console.ReadLine())

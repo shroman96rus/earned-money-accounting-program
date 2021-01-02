@@ -9,10 +9,11 @@ namespace earned_money_accounting_program
 {
     class WriteText
     {
-
+        
         //Создание текстового документа на основе полученных данных
         public void TextCreate(string translation)
         {
+
             FileInfo file = new FileInfo(@"C:\Users\User\Desktop\111\result\test.txt");
             if (file.Exists)
             {
@@ -38,6 +39,9 @@ namespace earned_money_accounting_program
 
             }
         }
+
+
+        
 
     }
 }

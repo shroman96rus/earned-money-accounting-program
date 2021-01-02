@@ -53,28 +53,7 @@ namespace earned_money_accounting_program
             }
         }
 
-        //Чтение Базы Данных
-        public void ReadDB()
-        {
-            //using (PhoneContext db = new PhoneContext())
-            //{
-            //    System.Data.SqlClient.SqlParameter param = new System.Data.SqlClient.SqlParameter("@name", "%Samsung%");
-            //    var phones = db.Database.SqlQuery<Phone>("SELECT * FROM Phones WHERE Name LIKE @name", param);
-            //    foreach (var phone in phones)
-            //        Console.WriteLine(phone.Name);
-            //}
-            using (UserContext db = new UserContext())
-            {
-                var test = db.Database.SqlQuery<Transaction>("SELECT * FROM Transactions ");
-                foreach (var item in test)
-                {
-                    Console.WriteLine($"Номер п/п: {item.ID}\t Дата операции: {item.dateOperation}\t " +
-                        $"Сумма операции: {item.summaOperation}\t Комментарий: {item.operationСomment}");
-                }
-                Console.WriteLine(db.Database.Connection.ConnectionString);
-            }
-
-        }
+        
 
         //Метод отвечающий за пополнение баланса при оплате за работу
         public void PayForWork(DateTime date, double payment, string note)
@@ -109,17 +88,23 @@ namespace earned_money_accounting_program
             
             Console.WriteLine(transactionHistory.ToString());
 
-            //Создание текстового документа
-            WriteText textCreate = new WriteText();
-            textCreate.TextCreate(transactionHistory.ToString());
-
+            this.transactionHistory = transactionHistory.ToString();
             //Создание таблицы XML
             CreateTable XML = new CreateTable();
             XML.CreateXML(allTransictions, this.balance);
             
         }
 
-        
+        private string transactionHistory;
+
+        public void CreateText()
+        {
+            //Создание текстового документа
+            WriteText textCreate = new WriteText();
+            textCreate.TextCreate(transactionHistory);
+        }
+
+
         //Чтение входящих данных из текстового файла
         public void TextRead()
         {
